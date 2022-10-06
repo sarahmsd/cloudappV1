@@ -1,0 +1,71 @@
+<%- include('../pages/header') %>
+<section class="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12 ">
+                <div class="bannar position-absolute top-50 start-50 translate-middle">
+                    <h2 class="title-section">Sign in</h2>
+                    <form action="/signup" method="post" class="row g-3">
+                        <div class="col-md-6">
+                            <label for="firstName" class="label-control">Fist Name</label>
+                            <input type="text" name="firstName" class="form-control" id="firstName"> 
+                            <% if(locals.errors && locals.errors['firstName']){%>
+                                <span class="error"><%= errors['firstName']['msg'] %></span>
+                            <% } %>      
+                        </div>
+                        <div class="col-md-6">
+                            <label for="lastName" class="label-control">Last Name</label>
+                            <input type="text" name="lastName" class="form-control" id="lastName">
+                            <% if(locals.errors && locals.errors['lastName']){%>
+                                <span class="error"><%= errors['lastName']['msg'] %></span>
+                            <% } %>            
+                        </div>
+                        <div class="col-md-6">
+                            <label for="phone" class="label-control">Phone</label>
+                            <input type="text" name="phone" class="form-control" id="phone"> 
+                            <% if(locals.errors && locals.errors['phone']){%>
+                                <span class="error"><%= errors['phone']['msg'] %></span>
+                            <% } %>            
+                        </div>
+                        <div class="col-md-6">
+                            <label for="email" class="label-control">Email</label>
+                            <input type="email" name="email" class="form-control" id="email"> 
+                            <% if(locals.errors && locals.errors['email']){%>
+                                <span class="error"><%= errors['email']['msg'] %></span>
+                            <% } %>            
+                        </div>
+                        <div class="col-md-6">
+                            <label for="organization" class="label-control">Organization</label>
+                            <input type="text" name="organization" class="form-control" id="organization">            
+                        </div>
+                        <div class="col-md-6">
+                            <label for="username" class="label-control">Username</label>
+                            <input type="text" name="username" class="form-control" id="username">
+                            <% if(locals.errors && locals.errors['username']){%>
+                                <span class="error"><%= errors['username']['msg'] %></span>
+                            <% } %>             
+                        </div>    
+                        <div class="col-md-6">
+                            <label for="password" class="label-control">Password</label>
+                            <input type="password" name="password" class="form-control" id="password">   
+                            <% if(locals.errors && locals.errors['password']){%>
+                                <span class="error"><%= errors['password']['msg'] %></span>
+                            <% } %>          
+                        </div>
+                        <div class="col-md-6">
+                            <label for="confirmPassword" class="label-control">Confirm Password</label>
+                            <input type="password" name="confirmPassword" class="form-control" id="confirmPassword">
+                            <% if(locals.errors && locals.errors['confirmPassword']){%>
+                                <span class="error"><%= errors['confirmPassword']['msg'] %></span>
+                            <% } %>             
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">SIGN UP</button>
+                        </div>                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<%- include('../pages/footer') %>

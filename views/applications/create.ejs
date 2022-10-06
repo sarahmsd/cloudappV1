@@ -1,0 +1,330 @@
+<%- include('../pages/headeradmin') %>
+
+<section class="form-area pt-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12 text-center">
+                <div class="section-title">
+                    <h4>Ajout Application</h4>
+                    <p>Suivez les étapes pour ajoutez votre application</p>
+                </div>
+            </div>
+        </div>
+        <!-- MultiStep Form -->
+        <div class="row">    
+            <div class="col-md-12 col-md-offset-4 text-center">
+                <form id="msform" method="post" action="/apps/create">
+                    <!-- progressbar -->
+                    <ul id="progressbar">
+                        <li class="active">Informations des APP</li>
+                        <li>Providing des Users</li>
+                        <li>Mode authentification</li>
+                        <li>Facturation & Payement mode</li>
+                    </ul>
+                    <!-- fieldsets -->
+                    <fieldset>
+                        <h2 class="fs-title">Informations</h2>
+                        <h3 class="fs-subtitle">Rensignez les infos de l'application</h3>
+                        <input type="text" class="form-control" name="appName" id="appName" placeholder="Nom de l'application" value="<%= locals.data && locals.data.appName ? data.appName : '' %>"></span>
+                        <% if(locals.errors && locals.errors['appName']){%>
+                            <span class="error"><%= errors['appName']['msg'] %></span>
+                        <% } %>
+                        <input  type="text" class="form-control" name="appType" id="appType" placeholder="Type de l'application" value="<%= locals.data && locals.data.appType ? data.appType : '' %>">
+                        <% if(locals.errors && locals.errors['appType']){%>
+                            <span class="error"><%= errors['appType']['msg'] %></span>
+                        <% } %>
+                        <input type="text" class="form-control" name="technology" id="technology" placeholder="Technologies(Séparés par ,)"> 
+                        <% if(locals.errors && locals.errors['technology']){%>
+                            <span class="error"><%= errors['technology']['msg'] %></span>
+                        <% } %>
+                        <textarea name="description" class="form-control" id="description" placeholder="Décrivez votre application(Facultatif)"><%= locals.data && locals.data.description ? data.description : '' %></textarea>
+                        <% if(locals.errors && locals.errors['description']){%>
+                            <span class="error"><%= errors['description']['msg'] %></span>
+                        <% } %>
+                        <input type="button" name="next" class="next action-button" value="Next"/>
+                    </fieldset>
+                    <fieldset>
+                        <h2 class="fs-title">Providing des utilisateurs</h2>
+                        <h3 class="fs-subtitle">Configurez comment on recupère vos utilisateurs </h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="usersMode">Fédération des Users</label>
+                                <input type="radio" placeholder="Fédération des users" name="usersMode" id="uf" value="UF">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="usersMode">Charger un fichier</label>
+                                <input type="radio" placeholder="Charger un fichier" name="usersMode" id="file" value="File">
+                            </div>
+                        </div>              
+                        <select class="form-select" name="provider" id="provider" style="display: none">
+                            <option value="">select a provider...</option>
+                            <option value="ldap">LDAP</option>
+                            <option value="kerberos">Kerberos</option>
+                        </select>
+                        <% if(locals.errors && locals.errors['provider']){%>
+                            <span class="error"><%= errors['provider']['msg'] %></span>
+                        <% } %>
+                                      
+                        <input type="file" name="fileusers" id="loadfile" style="display: none">
+                        <% if(locals.errors && locals.errors['fileusers']){%>
+                            <span class="error"><%= errors['fileusers']['msg'] %></span>
+                        <% } %>
+                        <div style="display: none" class="ldap" id="ldap">
+                            <select class="form-select" name="vendor" id="vendor">
+                                <option value="">select a vendor...</option>
+                                <option value="ad">Active Directory</option>
+                                <option value="rh">Red Hat Directory Server</option>
+                                <option value="trivoli">Trivoli</option>
+                                <option value="novell">Novell eDirectory</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <% if(locals.errors && locals.errors['vendor']){%>
+                                <span class="error"><%= errors['vendor']['msg'] %></span>
+                            <% } %>
+                            <input type="text" name="urlvendor" placeholder="URL de connexion au serveur"/>                        
+                            <input type="text" name="userDN" placeholder="User DN"/>                            
+                            <input type="text" name="bindDN" placeholder="bind DN"/>                            
+                            <input type="text" name="bindcreds" placeholder="Bind credentials"/>                            
+                        </div>
+                        <div style="display: none" class="kerberos" id="kerberos">                    
+                            <input type="text" name="kerberosRealm" placeholder="Kerberos realm"/>
+                            <% if(locals.errors && locals.errors['kerberosRealm']){%>
+                                <span class="error"><%= errors['kerberosRealm']['msg'] %></span>
+                            <% } %>
+                            <input type="text" name="serverPrincipal" placeholder="Server principal"/>
+                            <% if(locals.errors && locals.errors['serverPrincipal']){%>
+                                <span class="error"><%= errors['serverPrincipal']['msg'] %></span>
+                            <% } %>
+                            <input type="text" name="keyTab" placeholder="Key tab"/>
+                            <% if(locals.errors && locals.errors['keyTab']){%>
+                                <span class="error"><%= errors['keyTab']['msg'] %></span>
+                            <% } %>
+                        </div>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                        <input type="button" name="next" class="next action-button" value="Next"/>
+                    </fieldset>
+                    <fieldset>
+                        <h2 class="fs-title">Mode d'authentification des utilisateurs</h2>
+                        <h3 class="fs-subtitle">Sur quel interface voulez vous dirigez vos utilisateurs lors de leur connexion?</h3>
+                        <select class="form-select" aria-placeholder="Mode authentification" name="authenticationMode" id="authenticationMode">
+                            <option value="">Select Authentication mode...</option>
+                            <option value="api">Mode API (Use your login interface)</option>
+                            <option value="redirect"  >Redircetion (Users will be redirect to our interfaces)</option>
+                        </select>
+                        <% if(locals.errors && locals.errors['authenticationMode']){%>
+                            <span class="error"><%= errors['authenticationMode']['msg'] %></span>
+                        <% } %>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                        <input type="button" name="next" class="next action-button" value="Next"/>
+                    </fieldset>
+                    <fieldset>
+                        <h2 class="fs-title">Facturation & Payement mode</h2>
+                        <h3 class="fs-subtitle">Choisissez un mode pour la facturation et pour le payement</h3>
+                        <select class="form-select" aria-placeholder="Mode facturation" name="facturationMode" id="facturationMode">
+                            <option value="">Select billing mode...</option>
+                            <option value="PAYG">Pay As You Go</option>
+                        </select>
+                        <% if(locals.errors && locals.errors['facturationMode']){%>
+                            <span class="error"><%= errors['facturationMode']['msg'] %></span>
+                        <% } %>
+                        <select class="form-select" aria-placeholder="Mode payement" name="paymentMode" id="paymentMode" class="ui fluid dropdown">
+                            <option value="">Select payment mode...</option>
+                            <option value="MM">Mobile Money</option>
+                        </select>        
+                        <% if(locals.errors && locals.errors['paymentMode']){%>
+                            <span class="error"><%= errors['paymentMode']['msg'] %></span>
+                        <% } %>
+                        <input type="button" name="previous" class="previous action-button-previous" value="Previous"/>
+                        <input type="submit" name="submit" class="submit action-button" value="Submit"/>
+                    </fieldset>
+                </form>
+                <!-- voir mes applications -->
+                <div class="dme_link pt-100 pb-100">
+                    <p><a href="/apps/show">Voir mes applications</a></p>
+                </div>
+                <!-- /.voir mes applications -->                
+            </div>
+        </div>
+        <!-- /.MultiStep Form -->
+        <!-- Recapitulatif des infos -->
+        <% if(locals.recap){ %>
+        <div class="row recap pb-100">
+            <div class="col-md-4">
+                <h4>Infos</h4>
+                <ul>
+                    Nom: <li id="nom"><%= recap.appName %></li>
+                    Type: <li id="type"><%= recap.appType %></li>
+                    Technologies: <li id="technos"><%= recap.technology %></li>
+                    Description: <li id="desc"><%= recap.description %></li>                
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <% if(recap.usersMode == 'UF'){ %>
+                    <h4>Fédération des identités</h4>
+                    <% if(recap.provider == 'ldap'){ %>
+                        <h5>Provider LDAP</h5>
+                        <ul>
+                            Vendor: <li id="url"><%= recap.vendor %></li>
+                            URL vendor: <li id="url"><%= recap.urlvendor %></li>
+                            Users DN: <li id="userdn"><%= recap.userDN %></li>
+                            Bind DN: <li id="binddn"><%= recap.bindDN %></li>
+                            Bind credentials: <li id="bindcreds"><%= recap.bindcreds %></li>
+                        </ul>
+                    <% } %>
+                    <% if(recap.provider == 'kerberos'){ %>
+                        <h5>Provider Kerberos</h5>
+                        <ul>
+                            Kerberos realm: <li id="kr"><%= recap.kerberosRealm %></li>
+                            Server Principal: <li id="sp"><%= recap.serverPrincipal %></li>
+                            Key Tab: <li id="kt"><%= recap.keyTab %></li>
+                        </ul>
+                    <% } %>
+                <% } %>
+                <% if(recap.usersMode == 'file'){ %>
+                    <h5>Mode chargement de fichier</h5>
+                <% } %>                
+            </div>
+            <div class="col-md-4">
+                <h4>Autres Infos</h4>
+                <ul>
+                    Mode d'authentification: <li id="modeauth"><%= recap.authenticationMode %></li>
+                    Mode de facturation: <li id="bil"><%= recap.facturationMode %></li>
+                    Mode de payement: <li id="pay"><%= recap.paymentMode %></li>                
+                </ul>
+            </div>                        
+        </div>
+        <% } %>
+        <!-- Recapitulatif des infos -->
+    </div>
+</section>
+
+<script src="/js/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+    let uf = document.getElementById('uf');
+    let file = document.getElementById('file');
+    let provider = document.getElementById('provider');
+    let loadfile = document.getElementById('loadfile');
+    let liste, opt;
+    liste = document.getElementById("provider");
+
+    uf.addEventListener('click', function(){
+        provider.setAttribute('style', 'display: block');
+        loadfile.setAttribute('style', 'display: none');
+        document.getElementById("ldap").setAttribute("style", "display: none");
+        document.getElementById("kerberos").setAttribute("style", "display: none");
+    });
+
+    file.addEventListener('click', function(){
+        provider.setAttribute('style', 'display: none');
+        loadfile.setAttribute('style', 'display: block');
+        document.getElementById("ldap").setAttribute("style", "display: none");
+        document.getElementById("kerberos").setAttribute("style", "display: none");
+    });
+    
+    liste.addEventListener('click', function(){
+        opt = liste.options[liste.selectedIndex].value;
+        console.log(opt);
+        if(opt === "ldap"){
+            document.getElementById("ldap").setAttribute("style", "display: block");
+            document.getElementById("kerberos").setAttribute("style", "display: none");
+            loadfile.setAttribute('style', 'display: none');
+        }
+        if(opt === "kerberos"){
+            document.getElementById("ldap").setAttribute("style", "display: none");
+            document.getElementById("kerberos").setAttribute("style", "display: block");
+            loadfile.setAttribute('style', 'display: none');
+        }
+    });
+
+    
+    //jQuery time
+    let current_fs, next_fs, previous_fs; //fieldsets
+    let left, opacity, scale; //fieldset properties which we will animate
+    let animating; //flag to prevent quick multi-click glitches
+
+    $(".next").click(function(){
+        if(animating) return false;
+        animating = true;
+        current_fs = $(this).parent();
+        next_fs = $(this).parent().next();
+        
+        //activate next step on progressbar using the index of next_fs
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        
+        //show the next fieldset
+        next_fs.show(); 
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {            
+            step: function(now, mx) {
+                //as the opacity of current_fs reduces to 0 - stored in "now"
+                //1. scale current_fs down to 80%
+                scale = 1 - (1 - now) * 0.2;
+                //2. bring next_fs from the right(50%)
+                left = (now * 50)+"%";
+                //3. increase opacity of next_fs to 1 as it moves in
+                opacity = 1 - now;
+                current_fs.css({
+                    'transform': 'scale('+scale+')',
+                    'position': 'absolute'
+                });
+                next_fs.css({'left': left, 'opacity': opacity});
+            }, 
+            duration: 800, 
+            complete: function(){
+                current_fs.hide();
+                animating = false;
+            }, 
+            //this comes from the custom easing plugin
+            /*easing: 'easeInOutBack'*/
+        });
+    });
+
+    $(".previous").click(function(){
+        if(animating) return false;
+        animating = true;
+        
+        current_fs = $(this).parent();
+        previous_fs = $(this).parent().prev();
+        
+        //de-activate current step on progressbar
+        $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+        
+        //show the previous fieldset
+        previous_fs.show(); 
+        //hide the current fieldset with style
+        current_fs.animate({opacity: 0}, {
+            step: function(now, mx) {
+                //as the opacity of current_fs reduces to 0 - stored in "now"
+                //1. scale previous_fs from 80% to 100%
+                scale = 0.8 + (1 - now) * 0.2;
+                //2. take current_fs to the right(50%) - from 0%
+                left = ((1-now) * 50)+"%";
+                //3. increase opacity of previous_fs to 1 as it moves in
+                opacity = 1 - now;
+                current_fs.css({'left': left});
+                previous_fs.css({'transform': 'scale('+scale+')', 'opacity': opacity});
+            }, 
+            duration: 800, 
+            complete: function(){
+                current_fs.hide();
+                animating = false;
+            }, 
+            //this comes from the custom easing plugin
+            /*easing: 'easeInOutBack'*/
+        });
+    });
+
+    /* $(".submit").click(function(){
+        return false;
+    }) */
+});
+    
+</script>
+
+<%- include('../pages/footer') %>
+
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias consequatur atque excepturi inventore culpa ex nulla ipsa eligendi nisi iste!

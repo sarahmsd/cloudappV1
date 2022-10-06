@@ -1,0 +1,26 @@
+<%- include('../pages/header') %>
+<section class="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="bannar position-absolute top-50 start-50 translate-middle">
+                    <h2 class="title-section">Login</h2>
+                    <form action="/login" method="post" class="row g-3">
+                        <div class="col-md-6">
+                            <label for="username" class="label-control">Username</label>
+                            <input class="form-control" type="text" name="username" id="username">            
+                        </div>
+                        <div class="col-md-6">
+                            <label for="password" class="label-control">Password</label>
+                            <input class="form-control" type="password" name="password" id="password">            
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">LOGIN</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<%- include('../pages/footer') %>

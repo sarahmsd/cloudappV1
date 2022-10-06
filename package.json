@@ -1,0 +1,35 @@
+{
+  "name": "cloudapp",
+  "version": "1.0.0",
+  "description": "Cloud Native app using node js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sarahmsd/cloudapp.git"
+  },
+  "author": "sarahmsd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarahmsd/cloudapp/issues"
+  },
+  "homepage": "https://github.com/sarahmsd/cloudapp#readme",
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "bootstrap": "^5.2.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "express-validator": "^6.14.2",
+    "flash": "^1.1.0",
+    "jquery": "^3.6.1",
+    "keycloak-connect": "16.1.1",
+    "moment": "^2.29.4",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.19",
+    "socket.io": "^4.5.2"
+  }
+}

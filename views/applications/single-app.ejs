@@ -1,0 +1,95 @@
+<%- include('../pages/headeradmin') %>
+<section class="single-app-area pt-100 pb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-xxl-12 text-center">
+                <div class="section-title">
+                    <h4>Eshop App</h4>
+                    <p>Détails & configurations de EShop App</p>
+                </div>
+            </div>
+        </div>
+        <div class="row details-app">
+            <div class="col-xxl-4">
+                <div class="technos pt-20">
+                    <span>Techno1</span>
+                    <span>Techno1</span>
+                    <span>Techno1</span>
+                    <span>Techno1</span>
+                </div>
+                <div class="desc">
+                    Description Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente a harum, quos, magnam sed sequi dolorem delectus facilis repellendus ipsam tempore nobis quidem labore nesciunt, id qui deleniti ullam natus.
+                </div>                
+            </div>
+            <div class="col-xxl-8">
+                <form action="">
+                    <div class="row configs-app pt-100">
+                        <div class="col-xxl-3 conf">
+                            <div class="label">
+                                Nom de l'application
+                            </div>
+                            <div class="champ">
+                                <input type="text" name="appName" value="Nom de l'app">
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 conf">
+                            <div class="label">
+                                Type de l'application
+                            </div>
+                            <div class="champ">
+                                <input type="text" name="appType" value="Type de l'app">
+                            </div>
+                        </div>
+                        <div class="col-xxl-3 conf">
+                            <div class="label">
+                                Technologies
+                            </div>
+                            <div class="champ">
+                                <input type="text" name="technology" value="Nom de l'app">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row configs-app">
+                        <div class="col-xxl-4 conf">
+                            <div class="label">
+                                Mode de facturation
+                            </div>
+                            <div class="champ">
+                                <select class="form-select" aria-placeholder="Mode facturation" name="facturationMode" id="facturationMode">
+                                    <option value="PAYG" selected>Pay As You Go</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 conf">
+                            <div class="label">
+                                Mode de payement
+                            </div>
+                            <div class="champ">
+                                <select class="form-select" aria-placeholder="Mode payement" name="paymentMode" id="paymentMode" class="ui fluid dropdown">
+                                    <option value="MM" selected>Mobile Money</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xxl-4 conf">
+                            <div class="label">
+                                Providing des users
+                            </div>
+                            <div class="champ">
+                                <select name="usersMode" id="">
+                                    <option value="UF" selected>Fédération des users</option>
+                                    <option value="file">Chargement de fichier</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div> 
+                    <div class="row text-center pb-20 pt-20">
+                        <div class="col-xxl-12 ">
+                            <a href="/" class="btn-box fill">Valider les modifications</a>
+                        </div>
+                    </div>
+                </form>
+            </div> 
+        </div>              
+    </div>
+</section>
+<%- include('../pages/footer') %>

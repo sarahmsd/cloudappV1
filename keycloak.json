@@ -1,0 +1,10 @@
+{
+  "realm": "cloudapp",
+  "auth-server-url": "http://localhost:8083/auth/",
+  "ssl-required": "external",
+  "resource": "cloudapp",
+  "credentials": {
+    "secret": "nMMgOFZSPuWsIM6orLSwJC5op0SfCE1y"
+  },
+  "confidential-port": 0
+}
